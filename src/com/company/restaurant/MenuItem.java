@@ -1,14 +1,20 @@
 package com.company.restaurant;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 /**
  * @author Oksana
  */
 public class MenuItem {
+   private int id;
    private String name;
    private double price;
    private String description;
    private Category category;
    private boolean isNew;
+   private static int counter = 0;
 
    public MenuItem(String name, double price, String description, Category category, boolean isNew) {
       this.name = name;
@@ -16,6 +22,18 @@ public class MenuItem {
       this.description = description;
       this.category = category;
       this.isNew = isNew;
+      counter++;
+      this.id = counter;
+
+   }
+
+   public MenuItem(){
+      id++;
+   }
+
+
+   public int getId() {
+      return id;
    }
 
    public String getName() {
@@ -56,5 +74,28 @@ public class MenuItem {
 
    public void setNew(boolean aNew) {
       isNew = aNew;
+   }
+
+   @Override
+   public String toString() {
+     return  "id. "+id + ". " + name+ " (" + description + ") " + " (" + isNew()+ ") -    " +
+              " $" + price+"\n";
+   }
+
+   @Override
+   public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+      MenuItem menuItem = (MenuItem) o;
+      return Double.compare(menuItem.price, price) == 0 &&
+              isNew == menuItem.isNew &&
+              Objects.equals(name, menuItem.name) &&
+              Objects.equals(description, menuItem.description) &&
+              category == menuItem.category;
+   }
+
+   @Override
+   public int hashCode() {
+      return Objects.hash(id, name, price, description, category, isNew);
    }
 }

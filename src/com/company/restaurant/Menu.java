@@ -3,7 +3,6 @@ package com.company.restaurant;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,4 +32,26 @@ public class Menu {
    public void setData(LocalDate data) {
       this.data = data;
    }
+
+   public void addMenuItem (String name, double price, String description, Category category, boolean isNew ){
+      MenuItem item = new MenuItem(name, price, description, category, isNew);
+      if (!menuItems.contains(item)) {
+         menuItems.add(item);
+      }else{
+         System.out.println("ADDING DUPLICATE: Menu item \""+item.getName()+"\" already exists in menu !");
+      }
+   }
+
+   public void deleteMenuItem(int id){
+      MenuItem itemToDelete = null;
+      for (MenuItem item: this.menuItems) {
+         if(item.getId() == id){
+            itemToDelete = item;
+         }
+      }
+
+      this.menuItems.remove(itemToDelete);
+      System.out.println("DELETE: Menu item \""+itemToDelete.getName()+"\" has been removed from menu");
+   }
+
 }
